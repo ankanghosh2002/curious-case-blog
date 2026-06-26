@@ -26,7 +26,7 @@ const {
 
     <link rel="canonical" href={Astro.url.href} />
 
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
   </head>
 
@@ -66,86 +66,73 @@ const {
     </div>
 
   <script is:inline>
-    (function () {
-      function startNetlifyIdentity() {
-        var identity = window.netlifyIdentity;
+  (function () {
+    function startNetlifyIdentity() {
+      var identity = window.netlifyIdentity;
 
-        if (!identity) {
-          console.error("Netlify Identity widget did not load.");
+      if (!identity) {
+        console.error("Netlify Identity widget did not load.");
+        return;
+      }
+
+      var urlHash = window.location.hash || "";
+      var urlSearch = window.location.search || "";
+
+      var hasInviteToken =
+        urlHash.indexOf("invite_token") !== -1 ||
+        urlSearch.indexOf("invite_token") !== -1;
+
+      var hasConfirmationToken =
+        urlHash.indexOf("confirmation_token") !== -1 ||
+        urlSearch.indexOf("confirmation_token") !== -1;
+
+      var hasRecoveryToken =
+        urlHash.indexOf("recovery_token") !== -1 ||
+        urlSearch.indexOf("recovery_token") !== -1;
+
+      var hasAnyIdentityToken =
+        hasInviteToken || hasConfirmationToken || hasRecoveryToken;
+
+      identity.on("init", function (user) {
+        if (!user && hasInviteToken) {
+          identity.open("signup");
           return;
         }
 
-        var urlHash = window.location.hash || "";
-        var urlSearch = window.location.search || "";
-
-        var hasInviteToken =
-          urlHash.indexOf("invite_token") !== -1 ||
-          urlSearch.indexOf("invite_token") !== -1;
-
-        var hasConfirmationToken =
-          urlHash.indexOf("confirmation_token") !== -1 ||
-          urlSearch.indexOf("confirmation_token") !== -1;
-
-        var hasRecoveryToken =
-          urlHash.indexOf("recovery_token") !== -1 ||
-          urlSearch.indexOf("recovery_token") !== -1;
-
-        var hasEmailChangeToken =
-          urlHash.indexOf("email_change_token") !== -1 ||
-          urlSearch.indexOf("email_change_token") !== -1;
-
-        var hasAnyIdentityToken =
-          hasInviteToken ||
-          hasConfirmationToken ||
-          hasRecoveryToken ||
-          hasEmailChangeToken;
-
-        identity.on("init", function (user) {
-          if (!user && hasInviteToken) {
-            identity.open("signup");
-            return;
-          }
-
-          if (!user && hasRecoveryToken) {
-            identity.open("login");
-            return;
-          }
-
-          if (!user && hasConfirmationToken) {
-            identity.open("login");
-            return;
-          }
-
-          if (!user && hasEmailChangeToken) {
-            identity.open("login");
-            return;
-          }
-        });
-
-        identity.on("login", function () {
-          window.location.href = "/admin/";
-        });
-
-        identity.init();
-
-        setTimeout(function () {
-          if (!hasAnyIdentityToken) return;
-
-          if (hasInviteToken) {
-            identity.open("signup");
-            return;
-          }
-
+        if (!user && hasRecoveryToken) {
           identity.open("login");
-        }, 600);
-      }
+          return;
+        }
 
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", startNetlifyIdentity);
-      } else {
-        startNetlifyIdentity();
-      }
-    })();
-  </script>
+        if (!user && hasConfirmationToken) {
+          identity.open("login");
+          return;
+        }
+      });
+
+      identity.on("login", function () {
+        window.location.href = "/admin/";
+      });
+
+      identity.init();
+
+      setTimeout(function () {
+        if (!hasAnyIdentityToken) return;
+
+        if (hasInviteToken) {
+          identity.open("signup");
+        } else {
+          identity.open("login");
+        }
+      }, 700);
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", startNetlifyIdentity);
+    } else {
+      startNetlifyIdentity();
+    }
+  })();
+</script>
   </body>
 </html>
