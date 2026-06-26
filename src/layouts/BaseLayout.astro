@@ -65,18 +65,28 @@ const {
         </footer>
     </div>
 
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", (user) => {
+  <script is:inline>
+    const netlifyIdentity = (window as any).netlifyIdentity;
+
+    if (netlifyIdentity) {
+      netlifyIdentity.on("init", (user: any) => {
         if (!user && window.location.hash.includes("invite_token")) {
-          window.netlifyIdentity.open("signup");
+          netlifyIdentity.open("signup");
+        }
+
+        if (!user && window.location.hash.includes("confirmation_token")) {
+          netlifyIdentity.open("login");
+        }
+
+        if (!user && window.location.hash.includes("recovery_token")) {
+          netlifyIdentity.open("login");
         }
       });
 
-      window.netlifyIdentity.on("login", () => {
+      netlifyIdentity.on("login", () => {
         document.location.href = "/admin/";
       });
     }
-  </script>
+</script>
   </body>
 </html>
