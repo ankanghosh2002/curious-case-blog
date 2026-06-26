@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog", ({ data }) => {
+  return !data.draft && data.category === "stories";
+})).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Stories | The Curious Case of Ankan Ghosh??"
+  description="Curious thoughts, opinions, questions, strange ideas, and personal notes by Ankan Ghosh."
+>
+  <section class="section">
+    <section class="page-hero-strip">
+      <img
+        src="/banners/stories-banner.png"
+        alt="Stories page banner"
+        class="page-hero-image"
+      />
+
+      <p class="page-kicker">strange files</p>
+
+      <h1 class="page-title">Stories</h1>
+
+      <p class="page-description">
+        Fictional fragments and strange little stories frpom 3AM thoughts.
+      </p>
+    </section>
+
+    <div class="latest-list">
+      {
+        posts.map((post) => (
+          <article class="post-row">
+            <time class="post-date">
+              {post.data.pubDate.toLocaleString("en", { month: "short" })}
+            </time>
+
+            <div class="post-main">
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              <p class="post-summary">{post.data.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

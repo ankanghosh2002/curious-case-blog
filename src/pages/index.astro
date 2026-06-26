@@ -1,17 +1,111 @@
 ---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
 
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const popularPosts = posts.filter((post) => post.data.popular);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="The Curious Case of Ankan Ghosh??"
+  description="A cosmic personal journal by Ankan Ghosh — curiosity, space, astronaut stories, opinions, and strange ideas."
+>
+  <section class="masthead" id="home">
+    <a href="/about"><img
+      src="/ccag-logo.png"
+      alt="The Curious Case of Ankan Ghosh logo"
+      class="masthead-logo"
+    /></a>
+
+    <p class="overline">personal case file no. 01</p>
+
+    <h1 class="display-title">
+      <span class="title-small">The Curious Case of</span>
+      <span class="title-main">Ankan Ghosh</span>
+    </h1>
+
+    <div class="subtitle-stack">
+      <div>Curiosity &amp; space</div>
+      <div>And other strange matters</div>
+      <div>That refuse to leave my head</div>
+    </div>
+
+    <p class="author-line">written by: Ankan Ghosh</p>
+
+    <div class="quote-block">
+      <div class="stars">★★★★★</div>
+
+      <p class="lead-quote">
+        “Another human trying to understand the universe from a tiny browser window.”
+      </p>
+
+      <p class="quote-name">— my brain at 2:17 AM</p>
+    </div>
+  </section>
+
+  <article class="intro-article">
+        <p>
+          What's up people, welcome to my cosmic personal journal. I'm happy you are here.
+          Please make yourself comfortable. I'm just a guy who writes about thoughts that
+          arrive suddenly, space stories that stay in my head, astronauts, science,
+          opinions, strange ideas, and everything my curiosity keeps chasing.
+        </p>
+
+        <p>
+          This blog is not a niche. It is a small archive of whatever I feel like exploring.
+          Some posts may be serious, some may be filmy, some may be personal, and some may
+          be completely strange.
+        </p>
+    </article>
+
+  <div class="ornament-divider" aria-hidden="true">✦ ✦ ✦</div>
+
+  <section class="section">
+    <h2 class="section-title">Popular posts</h2>
+
+    <div class="popular-list">
+      {
+        popularPosts.map((post) => (
+          <article class="popular-item">
+            <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+            <p>{post.data.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Latest posts</h2>
+
+    <div class="latest-list">
+      {
+        posts.map((post) => (
+          <article class="post-row">
+            <time class="post-date">
+              {post.data.pubDate.toLocaleString("en", { month: "short" })}
+            </time>
+
+            <div class="post-main">
+              <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+              <span class="post-category">/ {post.data.category}</span>
+              <p class="post-summary">{post.data.description}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section mini-section" id="contact">
+    <h2 class="section-title">Contact</h2>
+    <p>Want to talk about space, stories, websites, ideas, or something strange?</p>
+    <a href="mailto:ghoshankan226@gmail.com" class="contact-link">
+       Send a message →
+    </a>
+  </section>
+
+</BaseLayout>

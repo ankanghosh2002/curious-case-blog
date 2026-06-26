@@ -1,0 +1,117 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Don’t Click Here | The Curious Case of Ankan Ghosh??"
+  description="A strange hidden page from The Curious Case of Ankan Ghosh, featuring the legendary presence of Young Ankan."
+>
+  <section class="secret-page">
+
+    <p class="overline">classified case file</p>
+
+    <div>
+      <img
+        src="/dontclickhere.png"
+        alt="dont click here"
+        class="secret-image"
+      />
+    </div>
+
+    <h1 class="secret-title">
+      You have been graced by the presence of Young Ankan
+    </h1>
+
+    <article class="secret-story">
+      <p>
+        Legend says that Young Ankan appeared only to those brave enough,
+        foolish enough, or curious enough to click the forbidden link.
+      </p>
+
+      <p>
+        He was not summoned by algorithms, search engines, or social media
+        recommendations. He arrived through pure curiosity — the oldest and
+        most dangerous force on the internets. Some say he carried unfinished 
+        ideas in his pockets. Some say he once stared at the night sky and 
+        accidentally started questioning the entire universe. Others believe 
+        he still appears whenever someone opens a strange personal website 
+        and wonders, “Why does this exist?”
+      </p>
+
+      <p>
+        Nobody knows the full truth. But now that you are here, the case file
+        has recorded your presence. Hence you must be careful and
+      </p>
+      <p>
+        <strong>share 10 of your friends</strong> the link to this website, or else Young Ankan will appear in your dreams and ask you
+        questions that you cannot answer.
+      </p>
+    </article>
+
+    <section class="share-section">
+        <p class="share-kicker">spread the case file</p>
+        <h2 class="share-title">Share this strange discovery</h2>
+        <div class="share-actions">
+            <button class="share-btn" id="nativeShareBtn">
+            Share page
+            </button>
+            <button class="share-btn ghost" id="copyLinkBtn">
+            Copy link
+            </button>
+        </div>
+        <p class="copy-message" id="copyMessage">
+            Link copied. The prophecy continues.
+        </p>
+    </section>
+    
+
+    <a href="/" class="text-link secret-back-link">
+      ← return to the normal timeline
+    </a>
+  </section>
+
+  <script>
+    const nativeShareBtn = document.getElementById("nativeShareBtn");
+    const copyLinkBtn = document.getElementById("copyLinkBtn");
+    const copyMessage = document.getElementById("copyMessage");
+
+    const homePageUrl = `${window.location.origin}/`;
+
+    const shareData = {
+      title: "The Curious Case of Ankan Ghosh??",
+      text: "I found this strange journal by Ankan Ghosh.",
+      url: homePageUrl
+    };
+
+    async function copyHomePageLink() {
+      try {
+        await navigator.clipboard.writeText(homePageUrl);
+
+        if (copyMessage) {
+          copyMessage.textContent = "Homepage link copied. The prophecy continues.";
+          copyMessage.classList.add("show");
+
+          setTimeout(() => {
+            copyMessage.classList.remove("show");
+          }, 2200);
+        }
+      } catch (error) {
+        alert("Copy failed. Please copy the homepage link from your browser.");
+      }
+    }
+
+    nativeShareBtn?.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share(shareData);
+        } catch (error) {
+          console.log("Sharing cancelled.");
+        }
+      } else {
+        copyHomePageLink();
+      }
+    });
+
+    copyLinkBtn?.addEventListener("click", copyHomePageLink);
+ </script>
+</BaseLayout>

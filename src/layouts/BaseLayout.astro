@@ -1,0 +1,82 @@
+---
+import "../styles/global.css";
+
+const {
+  title = "The Curious Case of Ankan Ghosh??",
+  description = "A cosmic personal journal by Ankan Ghosh — thoughts, space stories, curiosity, opinions, and strange ideas.",
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" type="image/svg+xml" href="/ccag-icon.ico" />
+
+    <title>{title}</title>
+
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <link rel="canonical" href={Astro.url.href} />
+
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+  </head>
+
+  <body>
+    <div class="site-shell">
+      <header class="site-header">
+        <nav class="navbar" aria-label="Main navigation">
+            <a href="/" class="nav-symbol" aria-label="Home">✦</a>
+            <a href="/curiosity/">Curiosity</a>
+            <a href="/space/">Space</a>
+            <a href="/stories/">Stories</a>
+            <a href="/about/">About</a>
+      </nav>
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <!-- ================= FOOTER ================= -->
+        <footer class="footer">
+        <div class="footer-ornament">das Ende</div>
+
+        <p class="copyright">
+            2086© <em>(so I don’t forget to change the year)</em><br />
+            The Curious Case of Ankan Ghosh??
+        </p>
+
+        <p class="dedication">
+            This site is dedicated to mine and to the people who keep exploring the universe.
+        </p>
+
+        <a href="/dont-click-here/" class="random-link">
+            Don’t click here
+        </a>
+        </footer>
+    </div>
+
+  <script>
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user && window.location.hash.includes("invite_token")) {
+          window.netlifyIdentity.open("signup");
+        }
+      });
+
+      window.netlifyIdentity.on("login", () => {
+        document.location.href = "/admin/";
+      });
+    }
+  </script>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+backend:
+  name: git-gateway
+  branch: main
+
+site_url: https://curiouscaseofankan.netlify.app
+display_url: https://curiouscaseofankan.netlify.app
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+publish_mode: editorial_workflow
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    label_singular: "Blog Post"
+    folder: "src/content/blog"
+    create: true
+    delete: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    preview_path: "blog/{{slug}}"
+    summary: "{{title}} — {{category}}"
+
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+
+      - label: "Description"
+        name: "description"
+        widget: "text"
+        hint: "Short SEO description and homepage preview."
+
+      - label: "Publish Date"
+        name: "pubDate"
+        widget: "datetime"
+        date_format: "YYYY-MM-DD"
+        time_format: false
+
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Curiosity", value: "curiosity" }
+          - { label: "Space", value: "space" }
+          - { label: "Stories", value: "stories" }
+
+      - label: "Popular Post"
+        name: "popular"
+        widget: "boolean"
+        default: false
+
+      - label: "Draft"
+        name: "draft"
+        widget: "boolean"
+        default: false
+
+      - label: "Cover Image"
+        name: "cover"
+        widget: "image"
+        required: false
+
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
