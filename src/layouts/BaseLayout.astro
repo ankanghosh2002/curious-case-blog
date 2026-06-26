@@ -66,34 +66,86 @@ const {
     </div>
 
   <script is:inline>
-  const netlifyIdentity = (window as any).netlifyIdentity;
+    (function () {
+      function startNetlifyIdentity() {
+        var identity = window.netlifyIdentity;
 
-  function hasToken(tokenName: string) {
-    return (
-      window.location.hash.includes(tokenName) ||
-      window.location.search.includes(tokenName)
-    );
-  }
+        if (!identity) {
+          console.error("Netlify Identity widget did not load.");
+          return;
+        }
 
-  if (netlifyIdentity) {
-    netlifyIdentity.on("init", (user: any) => {
-      if (!user && hasToken("invite_token")) {
-        netlifyIdentity.open("signup");
+        var urlHash = window.location.hash || "";
+        var urlSearch = window.location.search || "";
+
+        var hasInviteToken =
+          urlHash.indexOf("invite_token") !== -1 ||
+          urlSearch.indexOf("invite_token") !== -1;
+
+        var hasConfirmationToken =
+          urlHash.indexOf("confirmation_token") !== -1 ||
+          urlSearch.indexOf("confirmation_token") !== -1;
+
+        var hasRecoveryToken =
+          urlHash.indexOf("recovery_token") !== -1 ||
+          urlSearch.indexOf("recovery_token") !== -1;
+
+        var hasEmailChangeToken =
+          urlHash.indexOf("email_change_token") !== -1 ||
+          urlSearch.indexOf("email_change_token") !== -1;
+
+        var hasAnyIdentityToken =
+          hasInviteToken ||
+          hasConfirmationToken ||
+          hasRecoveryToken ||
+          hasEmailChangeToken;
+
+        identity.on("init", function (user) {
+          if (!user && hasInviteToken) {
+            identity.open("signup");
+            return;
+          }
+
+          if (!user && hasRecoveryToken) {
+            identity.open("login");
+            return;
+          }
+
+          if (!user && hasConfirmationToken) {
+            identity.open("login");
+            return;
+          }
+
+          if (!user && hasEmailChangeToken) {
+            identity.open("login");
+            return;
+          }
+        });
+
+        identity.on("login", function () {
+          window.location.href = "/admin/";
+        });
+
+        identity.init();
+
+        setTimeout(function () {
+          if (!hasAnyIdentityToken) return;
+
+          if (hasInviteToken) {
+            identity.open("signup");
+            return;
+          }
+
+          identity.open("login");
+        }, 600);
       }
 
-      if (!user && hasToken("confirmation_token")) {
-        netlifyIdentity.open("login");
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", startNetlifyIdentity);
+      } else {
+        startNetlifyIdentity();
       }
-
-      if (!user && hasToken("recovery_token")) {
-        netlifyIdentity.open("login");
-      }
-    });
-
-    netlifyIdentity.on("login", () => {
-      document.location.href = "/admin/";
-    });
-  }
-</script>
+    })();
+  </script>
   </body>
 </html>
