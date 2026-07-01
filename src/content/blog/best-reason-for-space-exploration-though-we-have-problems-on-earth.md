@@ -6,7 +6,7 @@ description: A reflection on why space exploration matters even when Earth has
 pubDate: 2026-07-02
 category: space
 popular: false
-draft: true
+draft: false
 cover: /uploads/spaceexploration.jpg
 ---
 Just, Imagine we are all in a cave.
