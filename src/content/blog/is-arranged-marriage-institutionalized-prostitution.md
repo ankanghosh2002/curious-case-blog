@@ -8,7 +8,7 @@ pubDate: 2026-06-30
 category: curiosity
 popular: true
 draft: false
-cover: /uploads/isarrangemarriageintitutionalizedprostitution.jpg
+cover: /uploads/isarrangemarriageintitutionalizedprostitution.png
 ---
 Arrange marriage is a prostitution pit in which society pushes their offspring to drown and eventually survive by the key principle of *'habit'*. When I dare say *'prostitution'*, it’s from both sides. It is like a corporate contract which ensures wealth, stability, family status, and physical appearance, and can often be noted as a deal of life, where the woman is expected to provide domestic labor and a progeny or several progenies, and the man is alleged to provide family security, status, and money to the home. Now many people oppose this by saying:
 *“You two can fall in love after marriage.”* But this statement is the most nonsensical belief of this age, because if we lock up two people and say:
