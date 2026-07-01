@@ -11,14 +11,7 @@ cover: /uploads/spaceexploration.jpg
 ---
 Just, Imagine we are all in a cave.
 **"We are caveman"**.
-Now, I say that **"I would like to go out of the cave and explore what's across the vast horizon beyond the hills"**
-But then you come to me and say
-> **"No!!, Can't do that,
-> We have problems in the cave and we need to fix the cave problems first, That has high Priority"**
-
-and
-
-> **"You can't go beyond the cave"**
+Now, I say that **"I would like to go out of the cave and explore what's across the vast horizon beyond the hills",** But then you come to me and say **"No!!, Can't do that, We have problems in the cave and we need to fix the cave problems first, That has high Priority"** and **"You can't go beyond the cave"**
 
 ![best reason for space exploration](/uploads/spaceexploration.jpg)
 
@@ -37,7 +30,7 @@ Well, Why are we going into the space?
 
 Maybe to learn the Cosmos and learn that
 
-> **"Why are we ? And What are we?"**
+**"Why are we ? And What are we?"**
 
 But, then you can say that
 how would that affect you today??
@@ -45,6 +38,7 @@ Well, it won't.
 There's no contribution of your existence today.
 BUT we may discover something in space, that will really matter in the future.
 And Maybe, maybe space exploration is mostly important because it gives you the privilege to
+
 * Run in your athletic shoes which was made during the Apollo missions for the EVA suits for shock absorption and stability.
 * Take a Cab (GPS) and wander where ever you want.
 * Take a selfie which was possible due the miniaturization of cameras on spacecrafts.
