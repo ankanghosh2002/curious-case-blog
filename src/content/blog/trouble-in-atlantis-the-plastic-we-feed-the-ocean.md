@@ -6,7 +6,7 @@ description: A sharp reflection on plastic pollution, marine life, human
 pubDate: 2026-07-03
 category: curiosity
 popular: false
-draft: true
+draft: false
 cover: /uploads/troubleinatlantis.jpg
 ---
 ![trouble in atlantis](/uploads/troubleinatlantis.jpg)
