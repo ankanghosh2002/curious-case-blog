@@ -3,7 +3,7 @@ title: Should We Contact Aliens?
 description: Are we alone?  "If it's just us... seems like an awful waste of space"
 pubDate: 2026-06-27
 category: space
-popular: true
+popular: false
 draft: false
 cover: /uploads/shouldwecontactaliens.jpg
 ---
