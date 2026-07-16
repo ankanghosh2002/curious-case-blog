@@ -4,7 +4,7 @@ description: "People cry at funerals—but sometimes they laugh too. Is it
   disrespect, emotional overload, or something deeper? "
 pubDate: 2026-07-05
 category: curiosity
-popular: false
+popular: true
 draft: false
 cover: /uploads/whydowelaughatfunerals.jpg
 ---
