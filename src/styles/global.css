@@ -815,3 +815,415 @@ img {
     width: 34px;
   }
 }
+
+
+
+/* SHARE BUTTON AND POPUP */
+
+.article-meta-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  margin-bottom:1rem;
+}
+
+.share-trigger{
+  background:none;
+  border:none;
+  color:var(--red-ink);
+  cursor:pointer;
+  font:inherit;
+  transition:.25s;
+}
+
+.share-trigger:hover{
+  opacity:.7;
+}
+
+.share-footer{
+  margin-top:4rem;
+  text-align:center;
+}
+/* ===================================================
+   SHARE CASE FILE POPUP
+=================================================== */
+
+.share-modal{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:24px;
+
+    background:rgba(22,20,18,.28);
+    backdrop-filter:blur(6px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.28s ease;
+
+    z-index:9999;
+
+}
+
+.share-modal.open{
+
+    opacity:1;
+    visibility:visible;
+
+}
+
+/* ========================= */
+
+.share-card{
+
+    width:min(380px,92vw);
+
+    background:#FDFBF6;
+
+    border:1px solid rgba(50,40,35,.12);
+
+    border-radius:18px;
+
+    padding:2rem 1.8rem;
+
+    position:relative;
+
+    box-shadow:
+        0 30px 70px rgba(0,0,0,.18),
+        inset 0 1px rgba(255,255,255,.65);
+
+    animation:shareCard .22s ease;
+
+}
+
+/* ========================= */
+
+.close-share{
+
+    position:absolute;
+
+    right:16px;
+    top:14px;
+
+    width:34px;
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:transparent;
+
+    cursor:pointer;
+
+    font-size:1.25rem;
+
+    color:#888;
+
+    transition:.2s;
+
+}
+
+.close-share:hover{
+
+    background:#EFE9DD;
+
+    color:var(--red-ink);
+
+    transform:rotate(90deg);
+
+}
+
+/* ========================= */
+
+.share-card h3{
+
+    margin:0;
+
+    font-size:1.45rem;
+
+    text-align:center;
+
+    color:var(--red-ink);
+
+    font-family:var(--serif);
+
+    letter-spacing:.03em;
+
+}
+
+/* Decorative line */
+
+.share-card h3::after{
+
+    content:"";
+
+    display:block;
+
+    width:58px;
+
+    height:1px;
+
+    background:rgba(110,70,55,.22);
+
+    margin:14px auto 0;
+
+}
+
+/* ========================= */
+
+.share-card p{
+
+    margin:1.3rem auto 2rem;
+
+    max-width:270px;
+
+    text-align:center;
+
+    line-height:1.8;
+
+    color:#555;
+
+    font-size:.94rem;
+
+}
+
+/* ========================= */
+
+.share-buttons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:.8rem;
+
+}
+
+/* ========================= */
+
+.share-buttons button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:.65rem;
+
+    height:48px;
+
+    width:100%;
+
+    cursor:pointer;
+
+    border-radius:12px;
+
+    border:1px solid rgba(40,40,40,.08);
+
+    background:#FFF;
+
+    font-family:inherit;
+
+    font-size:.95rem;
+
+    transition:.18s ease;
+
+}
+
+.share-buttons button:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--red-ink);
+
+    color:var(--red-ink);
+
+    background:#FFF9F3;
+
+}
+
+/* ========================= */
+
+.share-buttons button:active{
+
+    transform:scale(.98);
+
+}
+
+/* ========================= */
+
+#copyMessage{
+
+    display:block;
+
+    margin-top:1rem;
+
+    text-align:center;
+
+    font-size:.88rem;
+
+    color:var(--red-ink);
+
+    min-height:20px;
+
+}
+
+/* ========================= */
+
+.share-card::before{
+
+    content:"✦";
+
+    position:absolute;
+
+    top:-13px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:28px;
+    height:28px;
+
+    border-radius:50%;
+
+    background:#FDFBF6;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:var(--red-ink);
+
+    font-size:.8rem;
+
+    border:1px solid rgba(50,40,35,.08);
+
+}
+
+/* ========================= */
+
+@keyframes shareCard{
+
+    from{
+
+        transform:
+        translateY(16px)
+        scale(.96);
+
+        opacity:0;
+
+    }
+
+    to{
+
+        transform:
+        translateY(0)
+        scale(1);
+
+        opacity:1;
+
+    }
+
+}
+
+/* ===================================================
+   MOBILE
+=================================================== */
+
+@media(max-width:640px){
+
+.share-card{
+
+    width:94vw;
+
+    border-radius:16px;
+
+    padding:1.7rem 1.3rem;
+
+}
+
+.share-card h3{
+
+    font-size:1.25rem;
+
+}
+
+.share-card p{
+
+    font-size:.9rem;
+
+    max-width:100%;
+
+}
+
+.share-buttons button{
+
+    height:46px;
+
+    font-size:.92rem;
+
+}
+
+}
+
+/* ==================================================
+   Reading Progress Bar
+================================================== */
+
+#reading-progress{
+
+    position:fixed;
+    top:0;
+    left:0;
+
+    height:3px;
+
+    width:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        #761818,
+        #b32626
+    );
+
+    box-shadow:
+        0 0 10px rgba(179,38,38,.35);
+
+    border-radius:0 3px 3px 0;
+
+    z-index:99999;
+
+}
+
+/* nice glow */
+
+#reading-progress::after{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:0;
+
+    width:18px;
+
+    height:100%;
+
+    background:rgba(255,255,255,.35);
+
+    filter:blur(3px);
+
+}

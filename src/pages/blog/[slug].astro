@@ -20,19 +20,137 @@ const { Content } = await render(post);
   description={post.data.description}
 >
   <article class="blog-article">
-    <p class="article-meta">
-      {post.data.pubDate.toLocaleDateString("en", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      })}
-      / {post.data.category}
-    </p>
+    <div class="article-meta-row">
+
+      <p class="article-meta">
+        {post.data.pubDate.toLocaleDateString("en", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+        / {post.data.category}
+      </p>
+
+      <button
+        class="share-trigger"
+        id="topShareBtn"
+        aria-label="Share this article">
+
+        ⤴ Share
+
+      </button>
+
+    </div>
 
     <h1 class="article-title">{post.data.title}</h1>
 
     <div class="article-content">
       <Content />
+      <section class="share-footer">
+
+        <button
+            class="share-trigger"
+            id="bottomShareBtn">
+
+            ⤴ Pass this article along
+
+        </button>
+
+      </section>
     </div>
   </article>
+  <!-- share popup -->
+  <div class="share-modal" id="shareModal">
+
+    <div class="share-card">
+
+      <button
+        class="close-share"
+        id="closeShare"
+        aria-label="Close">
+
+        ×
+
+      </button>
+
+      <h3>Pass this article along</h3>
+
+      <p>
+        If this article made you think, smile,
+        disagree, or question something...
+
+        <br /><br />
+
+        Share it with another curious mind.
+      </p>
+
+      <div class="share-buttons">
+
+        <button id="shareWhatsapp">WhatsApp</button>
+
+        <button id="shareX">X</button>
+
+        <button id="copyLink">Copy Link</button>
+
+      </div>
+
+      <span id="copyMessage"></span>
+
+    </div>
+
+  </div>
+
+<script is:inline>
+
+const modal = document.getElementById("shareModal");
+
+document.querySelectorAll(".share-trigger").forEach(button => {
+  button.addEventListener("click", () => {
+    modal.classList.add("open");
+  });
+});
+
+document.getElementById("closeShare").addEventListener("click", () => {
+  modal.classList.remove("open");
+});
+
+modal.addEventListener("click", (event) => {
+  if (event.target === modal) {
+    modal.classList.remove("open");
+  }
+});
+
+const url = window.location.href;
+const title = document.title;
+
+document.getElementById("shareWhatsapp").addEventListener("click", () => {
+  window.open(
+    `https://wa.me/?text=${encodeURIComponent(title + " " + url)}`,
+    "_blank"
+  );
+});
+
+document.getElementById("shareX").addEventListener("click", () => {
+  window.open(
+    `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+    "_blank"
+  );
+});
+
+document.getElementById("copyLink").addEventListener("click", async () => {
+
+  await navigator.clipboard.writeText(url);
+
+  const message = document.getElementById("copyMessage");
+
+  message.textContent = "✓ Link copied";
+
+  setTimeout(() => {
+    message.textContent = "";
+  }, 2000);
+
+});
+
+</script>
+
 </BaseLayout>
